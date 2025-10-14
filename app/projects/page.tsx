@@ -49,13 +49,24 @@ const listProjects = [
     tags: ["React", "Framer Motion","Tailwind","Supabase"],
   },
   {
-    title: "Campus Collaborative Dashboard",
-    desc: "Inter-department communication and project tracking across universities.",
+    title: "Urban-Eye : City Collaborative Dashboard",
+    desc: "Collaborative city dashboard with role based access for city officials and citizens. Citizens highlight issues and city officials can view and resolve them.",
     href: "#",
     images: [
       "/Screenshot_7-9-2025_18387_learnify-red.vercel.app.jpeg",
-      "/Screenshot_7-9-2025_18387_learnify-red.vercel.app.jpeg",
-      "/generation-20852383-21dd-437f-8282-000054b733f1.png",
+      "/urban/Screenshot_14-10-2025_10398_localhost.jpeg",
+      "/urban/Screenshot_14-10-2025_103524_localhost.jpeg",
+      "/urban/Screenshot_14-10-2025_103823_localhost.jpeg",
+      "/urban/Screenshot_14-10-2025_103845_localhost.jpeg",
+      "/urban/Screenshot_14-10-2025_103920_localhost.jpeg",
+      "/urban/Screenshot_14-10-2025_103928_localhost.jpeg",
+      "/urban/Screenshot_14-10-2025_104035_localhost.jpeg",
+      "/urban/Screenshot_14-10-2025_104047_localhost.jpeg",
+      "/urban/Screenshot_14-10-2025_104054_localhost.jpeg",
+      "/urban/Screenshot_14-10-2025_104114_localhost.jpeg",
+  
+
+
     ],
     tags: ["Next.js", "Tailwind", "Supabase","Framer-motion","React"],
   },
@@ -125,14 +136,18 @@ export default function ProjectsPage() {
                   ))}
                 </div>
                 {proj.href && (
-                  <a
-                    href={proj.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="cursor-target inline-block"
-                  >
-                    <GlowButton className="px-4 py-2">Visit Site →</GlowButton>
-                  </a>
+                  <div className="mt-3 w-full flex justify-center md:justify-start md:inline-flex md:w-auto relative z-20">
+                    <GlowButton asChild className="px-4 py-2">
+                      <a
+                        href={proj.href}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="cursor-target inline-block mx-auto md:mx-0 w-full sm:w-auto text-center"
+                      >
+                        Visit Site →
+                      </a>
+                    </GlowButton>
+                  </div>
                 )}
               </div>
 

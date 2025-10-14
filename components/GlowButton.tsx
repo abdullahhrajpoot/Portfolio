@@ -12,17 +12,24 @@ export default function GlowButton({ children, className = "", asChild = false, 
   const base = "relative inline-flex items-center justify-center rounded-2xl font-semibold text-black px-5 py-3 cursor-target";
   const skin = "bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-orange-400 shadow-[0_8px_30px_rgba(34,211,238,0.35)] transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]";
 
-  const Comp: any = asChild ? React.Fragment : "button";
+  const merged = `${base} ${skin} ${className}`.trim();
 
-  const content = (
-    <span className={`${base} ${skin} ${className}`.trim()}>{children}</span>
-  );
+  if (asChild && React.isValidElement(children)) {
+    const child = children as React.ReactElement<any>;
+    const mergedClass = `${child.props.className ?? ""} ${merged}`.trim();
+    return (
+      <HoverLift>
+        {React.cloneElement(child, { className: mergedClass })}
+      </HoverLift>
+    );
+  }
 
-  if (asChild) return <HoverLift>{content}</HoverLift>;
-
+  const Comp: any = "button";
   return (
     <HoverLift>
-      <Comp {...rest}>{content}</Comp>
+      <Comp {...rest} className={merged}>
+        {children}
+      </Comp>
     </HoverLift>
   );
 }

@@ -179,11 +179,11 @@ export default function Home() {
             image: "/Screenshot_8-10-2025_204224_localhost.jpeg",
           },
           {
-            title: "DevBoard",
-            description: "Analytics dashboard for engineering teams.",
-            tags: ["React", "Framer Motion", "Supabase"],
+            title: "Urban-Eye : City Collaborative Dashboard",
+            description: "Collaborative city dashboard with role based access for city officials and citizens.",
+            tags: ["React", "Framer Motion", "MongoDB","Node.js","Tailwind"],
             href: "#",
-            image: "/Screenshot_7-9-2025_18387_learnify-red.vercel.app.jpeg",
+            image: "/urban/Screenshot_14-10-2025_103524_localhost.jpeg",
           },
         ];
         const cardVariants = {
