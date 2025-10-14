@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
+import { usePathname } from "next/navigation";
 
 export type PillNavItem = {
   label: string;
@@ -174,16 +175,13 @@ const PillNav: React.FC<PillNavProps> = ({
     });
   };
 
-  const toggleMobileMenu = () => {
-    const newState = !isMobileMenuOpen;
-    setIsMobileMenuOpen(newState);
-
+  const animateMobileMenu = (open: boolean) => {
     const hamburger = hamburgerRef.current;
     const menu = mobileMenuRef.current;
 
     if (hamburger) {
       const lines = hamburger.querySelectorAll(".hamburger-line");
-      if (newState) {
+      if (open) {
         gsap.to(lines[0], { rotation: 45, y: 3, duration: 0.3, ease });
         gsap.to(lines[1], { rotation: -45, y: -3, duration: 0.3, ease });
       } else {
@@ -193,19 +191,12 @@ const PillNav: React.FC<PillNavProps> = ({
     }
 
     if (menu) {
-      if (newState) {
+      if (open) {
         gsap.set(menu, { visibility: "visible" });
         gsap.fromTo(
           menu,
           { opacity: 0, y: 10, scaleY: 1 },
-          {
-            opacity: 1,
-            y: 0,
-            scaleY: 1,
-            duration: 0.3,
-            ease,
-            transformOrigin: "top center",
-          }
+          { opacity: 1, y: 0, scaleY: 1, duration: 0.3, ease, transformOrigin: "top center" }
         );
       } else {
         gsap.to(menu, {
@@ -221,14 +212,30 @@ const PillNav: React.FC<PillNavProps> = ({
         });
       }
     }
+  };
 
+  const toggleMobileMenu = () => {
+    const newState = !isMobileMenuOpen;
+    setIsMobileMenuOpen(newState);
+    animateMobileMenu(newState);
     onMobileMenuClick?.();
   };
+
+  useEffect(() => {
+    // Animate on external state changes (e.g., route change)
+    animateMobileMenu(isMobileMenuOpen);
+  }, [isMobileMenuOpen]);
 
   const isExternalLink = (href: string) =>
     href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("#");
 
   const isRouterLink = (href?: string) => href && !isExternalLink(href);
+
+  // Auto-close mobile menu on route change
+  const pathname = usePathname();
+  useEffect(() => {
+    if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   const cssVars = {
     ["--base"]: baseColor,
@@ -369,10 +376,12 @@ const PillNav: React.FC<PillNavProps> = ({
       <div
         ref={mobileMenuRef}
         className="md:hidden fixed top-[64px] left-4 right-4 rounded-[27px] shadow-[0_8px_32px_rgba(0,0,0,0.2)] z-[998] origin-top border border-white/10 backdrop-blur"
-        style={{ ...cssVars, background: "rgba(0,0,0,0.2)" }}
+        style={{ ...cssVars, background: "rgba(0,0,0,0.2)", pointerEvents: isMobileMenuOpen ? 'auto' : 'none' }}
+        aria-hidden={!isMobileMenuOpen}
       >
         <ul className="list-none m-0 p-[6px] flex flex-col gap-[6px]">
           {items.map((item) => {
+            const isActive = activeHref === item.href || pathname === item.href;
             const defaultStyle: React.CSSProperties = {
               background: "transparent",
               color: "#fff",
@@ -392,22 +401,24 @@ const PillNav: React.FC<PillNavProps> = ({
                 {isRouterLink(item.href) ? (
                   <Link
                     href={item.href}
-                    className="block py-3 px-4 text-[16px] font-medium rounded-[50px] transition-all duration-200"
+                    className={`block py-3 px-4 text-[16px] font-medium rounded-[50px] transition-all duration-200 ${isActive ? "bg-white/10" : ""}`}
                     style={defaultStyle}
                     onMouseEnter={hoverIn}
                     onMouseLeave={hoverOut}
                     onClick={() => setIsMobileMenuOpen(false)}
+                    aria-current={isActive ? "page" : undefined}
                   >
                     {item.label}
                   </Link>
                 ) : (
                   <a
                     href={item.href}
-                    className="block py-3 px-4 text-[16px] font-medium rounded-[50px] transition-all duration-200"
+                    className={`block py-3 px-4 text-[16px] font-medium rounded-[50px] transition-all duration-200 ${isActive ? "bg-white/10" : ""}`}
                     style={defaultStyle}
                     onMouseEnter={hoverIn}
                     onMouseLeave={hoverOut}
                     onClick={() => setIsMobileMenuOpen(false)}
+                    aria-current={isActive ? "page" : undefined}
                   >
                     {item.label}
                   </a>

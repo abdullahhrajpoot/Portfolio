@@ -39,6 +39,12 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
   useEffect(() => {
     if (!cursorRef.current) return;
 
+    // Do not enable custom cursor on coarse (touch) pointers
+    const isCoarse = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+    if (isCoarse) {
+      return;
+    }
+
     const originalCursor = document.body.style.cursor;
     if (hideDefaultCursor) {
       document.body.style.cursor = 'none';
@@ -330,6 +336,7 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
     <div
       ref={cursorRef}
       className="fixed top-0 left-0 w-0 h-0 pointer-events-none z-[9999] mix-blend-difference transform -translate-x-1/2 -translate-y-1/2"
+      data-target-cursor
       style={{ willChange: 'transform' }}
     >
       <div

@@ -1,9 +1,13 @@
+"use client";
 import GradientText from "@/components/GradientText";
 import DecryptedText from "@/components/DecryptedText";
 import LogoLoop from "@/components/LogoLoop";
 import StarBorder from "@/components/StarBorder";
 import ElectricBorder from "@/components/ElectricBorder";
 import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { Reveal, HoverLift } from "@/components/MotionWrappers";
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiSupabase, SiFramer, SiGithub, SiVercel, SiStripe } from "react-icons/si";
 
 export default function AboutPage() {
@@ -14,19 +18,58 @@ export default function AboutPage() {
         <GradientText colors={["#40ffaa","#4079ff","#40ffaa"]} animationSpeed={4}>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-center">About Me</h1>
         </GradientText>
-        <div className="mt-4 max-w-3xl mx-auto text-center">
-          <GradientText colors={["#ff7b00", "#a259ff", "#ff7b00"]}
- animationSpeed={4} className="text-white/90">
-            <DecryptedText
-              text={"Hey, I’m Abdullah Hassan, a Software Engineering undergrad at COMSATS University who’s passionate about building modern, scalable web applications that blend clean design with solid backend logic.\n\nI specialize in React, Next.js, Tailwind CSS, Supabase, and Framer Motion — crafting digital products that don’t just look good but feel good to use.\n\nWhat drives me is turning ideas into real, functional products — whether that’s a student dashboard, a rental marketplace, or a collaborative web platform. I love solving real-world problems, optimizing workflows, and building tools that actually help people."}
-              animateOn="view"
-              revealDirection="center"
-              className="text-base md:text-lg whitespace-pre-line"
-              parentClassName="block text-center"
-              encryptedClassName="opacity-60"
-              speed={35}
-            />
-          </GradientText>
+        <div className="mt-6 max-w-5xl mx-auto">
+          <div className="relative rounded-[24px] border border-white/10 bg-[rgba(6,0,16,0.5)] backdrop-blur p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-x-0 -top-24 h-48 bg-[radial-gradient(closest-side,rgba(64,255,170,0.25),rgba(64,121,255,0.15),rgba(0,0,0,0))] pointer-events-none" />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+              <div className="lg:col-span-2">
+                <GradientText colors={["#ff7b00", "#a259ff", "#ff7b00"]} animationSpeed={4} className="block text-left">
+                  <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">Who I Am</h2>
+                </GradientText>
+                <GradientText colors={["#40ffaa", "#4079ff", "#40ffaa"]} animationSpeed={3} className="text-white/90">
+                  <DecryptedText
+                    text={"Hey, I’m Abdullah Hassan, a Software Engineering undergrad at COMSATS University and a full-stack web developer who loves turning real problems into real products. I specialize in Next.js, Supabase, Tailwind, and modern SaaS architecture, building full end-to-end applications with authentication, role-based dashboards, real-time databases, payments, and clean UI/UX that actually feels good to use."}
+                    animateOn="both"
+                    revealDirection="center"
+                    className="text-base md:text-lg whitespace-pre-line"
+                    parentClassName="block text-left"
+                    encryptedClassName="opacity-60"
+                    speed={35}
+                  />
+                </GradientText>
+                <div className="mt-5">
+                  <GradientText colors={["#40ffaa","#4079ff","#40ffaa"]} animationSpeed={4}>
+                    <h3 className="text-xl md:text-2xl font-extrabold tracking-tight">Why Me</h3>
+                  </GradientText>
+                  <Reveal>
+                    <p className="text-white/85 mt-2 text-sm md:text-base">
+                      I design, build, and ship complete MVPs that go live in weeks—not months. I’ve delivered platforms like a multi-portal tutoring system, a clinic scheduling + invoice portal, an Urdu-friendly rental marketplace, and collaborative dashboards for hackathons.
+                    </p>
+                  </Reveal>
+                  <Reveal delay={0.08}>
+                    <p className="text-white/70 mt-3 text-sm md:text-base">
+                      Product-first, execution-focused. I optimize workflows and craft UI/UX that feels great. If there’s a vision, I can build it.
+                    </p>
+                  </Reveal>
+                </div>
+              </div>
+              <div className="w-full flex justify-center lg:justify-end">
+                <span className="relative inline-block p-[2px] rounded-2xl bg-gradient-to-tr from-cyan-400 via-fuchsia-500 to-orange-400 shadow-[0_10px_40px_rgba(34,211,238,0.18)]">
+                  <span className="block rounded-2xl overflow-hidden bg-black/30 backdrop-blur-sm w-[220px] h-[220px]">
+                    <Image
+                      src="/generation-20852383-21dd-437f-8282-000054b733f1.png"
+                      alt="Abdullah Hassan"
+                      width={440}
+                      height={440}
+                      className="w-full h-full object-cover object-[50%_30%]"
+                      priority
+                    />
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          
         </div>
       </div>
 
@@ -64,66 +107,102 @@ export default function AboutPage() {
       </div>
 
       {/* Timeline */}
-      <div className="space-y-6 max-w-3xl mx-auto">
+      <div className="space-y-6 max-w-5xl mx-auto">
         <GradientText colors={["#40ffaa","#4079ff","#40ffaa"]} animationSpeed={4}>
           <h2 className="text-2xl md:text-3xl font-bold">Journey</h2>
         </GradientText>
-        <div className="relative border-l border-white/10 pl-6 space-y-6">
-          {[
-            {
-              title: "BS Software Engineering – COMSATS University, Pakistan",
-              period: "2022 – Present",
-              body:
-                "Currently pursuing my degree with a focus on full-stack web development, database systems, and software design principles. Explored hands-on development through academic projects and hackathons, focusing on MERN and Next.js ecosystems.",
-            },
-            {
-              title: "Learnify (EdTech Platform)",
-              period: "2025",
-              body:
-                "A custom-built learning portal with Next.js + Supabase + Tailwind. Features auth, RLS, real-time updates, and role-based dashboards.",
-            },
-            {
-              title: "UrbanEye (Web-e-thon Hackathon)",
-              period: "2025",
-              body:
-                "Smart City Collaborative Dashboard. Focused on frontend architecture, UI/UX consistency, and real-time data visualization. Recognized for UI quality.",
-            },
-            {
-              title: "Campus Collaborative Dashboard (Concept)",
-              period: "2025",
-              body:
-                "Inter-department communication and project tracking across universities. Built with Next.js + Supabase + Framer Motion.",
-            },
-            {
-              title: "Local Rental Marketplace MVP (in progress)",
-              period: "2024",
-              body:
-                "Urdu-friendly rental marketplace. Listings, media uploads, search/filter, realtime chat. Planned Stripe/local payments.",
-            },
-            // {
-            //   title: "Personal Portfolio Site",
-            //   period: "2023",
-            //   body:
-            //     "Responsive site in Next.js with smooth animations using Framer Motion.",
-            // },
-            {
-              title: "Achievements & Highlights",
-              period: "—",
-              body:
-                "Internship offer in Next.js; Hackathon finalist at COMSATS Web-e-thon; Freelancing (Upwork/Fiverr); Active mentor and learner; Building an ethical tech roadmap.",
-            },
-          ].map((item, i) => (
-            <div key={i} className="relative">
-              <span className="absolute -left-[9px] top-3 w-4 h-4 rounded-full bg-white" />
-              <StarBorder as="div" className="">
-                <div className="rounded-xl p-4 bg-white/5">
-                  <div className="text-sm text-white/70">{item.period}</div>
-                  <div className="font-semibold text-lg mt-1">{item.title}</div>
-                  <div className="text-white/80 mt-1 text-sm">{item.body}</div>
-                </div>
-              </StarBorder>
-            </div>
-          ))}
+        <div className="relative">
+          {/* Center line */}
+          <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-full w-[3px] rounded-full bg-gradient-to-b from-cyan-400/30 via-white/10 to-fuchsia-400/30" />
+
+          <div className="relative space-y-10">
+            {[
+              {
+                title: "BS Software Engineering – COMSATS University, Pakistan",
+                period: "2024 – Present",
+                body:
+                  "Currently pursuing my degree with a focus on full-stack web development, database systems, and software design principles. Explored hands-on development through academic projects and hackathons, focusing on React and Next.js ecosystems.",
+              },
+              {
+                title: "Learnify (EdTech Platform)",
+                period: "2025",
+                body:
+                  "A custom-built learning portal with Next.js + Supabase + Tailwind. Features auth, RLS, real-time updates, and role-based dashboards. Features a custom AI chatbot with Deepseek API.",
+              },
+              {
+                title: "Family Dental Clinic",
+                period: "2025",
+                body:
+                  "Clinic website with receptionist and doctor booking workflows. Receptionists can make appointments for existing or new patients and generate invoices whereas doctors can view their appointments and earning histories.",
+              },
+              {
+                title: "UrbanEye (Web-e-thon Hackathon)",
+                period: "2025",
+                body:
+                  "Smart City Collaborative Dashboard. Focused on frontend architecture, UI/UX consistency, and real-time data visualization. Recognized for UI quality.",
+              },
+              {
+                title: "Local Rental Marketplace MVP (in progress)",
+                period: "2024",
+                body:
+                  "Urdu-friendly rental marketplace. Listings, media uploads, search/filter, realtime chat. Planned Stripe/local payments.",
+              },
+              {
+                title: "Achievements & Highlights",
+                period: "Present",
+                body:
+                  "Internship offer in Next.js; Hackathon finalist at COMSATS Web-e-thon; Freelancing (Upwork/Fiverr); Active mentor and learner; Building an ethical tech roadmap.",
+              },
+            ].map((item, i) => {
+              const isLeft = i % 2 === 0;
+              return (
+                <motion.div
+                  key={`${item.title}-${i}`}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.35 }}
+                  transition={{ duration: 0.55, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative grid grid-cols-1 lg:grid-cols-2 gap-6"
+                >
+                  {/* Center node */}
+                  <span
+                    aria-hidden
+                    className="absolute left-1/2 -translate-x-1/2 top-5 h-6 w-6 rounded-full bg-gradient-to-br from-orange-400 to-yellow-400 ring-4 ring-black/40 shadow-[0_0_0_2px_rgba(255,255,255,0.08),0_10px_30px_rgba(255,179,64,0.35)]"
+                  />
+
+                  {/* Left column card or spacer */}
+                  {isLeft ? (
+                    <div className="lg:pr-10">
+                      <StarBorder as="div">
+                        <div className="rounded-2xl p-5 md:p-6 bg-white/5 border border-white/10 backdrop-blur">
+                          <div className="text-sm text-yellow-300/90 font-semibold tracking-wide">{item.period}</div>
+                          <div className="font-bold text-xl mt-1">{item.title}</div>
+                          <div className="text-white/80 mt-2 text-sm leading-relaxed">{item.body}</div>
+                        </div>
+                      </StarBorder>
+                    </div>
+                  ) : (
+                    <div className="hidden lg:block" />
+                  )}
+
+                  {/* Right column card or spacer */}
+                  {!isLeft ? (
+                    <div className="lg:pl-10 lg:col-start-2">
+                      <StarBorder as="div">
+                        <div className="rounded-2xl p-5 md:p-6 bg-white/5 border border-white/10 backdrop-blur">
+                          <div className="text-sm text-yellow-300/90 font-semibold tracking-wide">{item.period}</div>
+                          <div className="font-bold text-xl mt-1">{item.title}</div>
+                          <div className="text-white/80 mt-2 text-sm leading-relaxed">{item.body}</div>
+                        </div>
+                      </StarBorder>
+                    </div>
+                  ) : (
+                    <div className="hidden lg:block" />
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
         <div className="pt-6 text-center">
           <Link href="/projects" className="cursor-target">

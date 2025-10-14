@@ -1,5 +1,6 @@
 "use client"
 import Link from "next/link";
+import GlowButton from "@/components/GlowButton";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import GradientText from "@/components/GradientText";
@@ -66,7 +67,7 @@ export default function Home() {
           >
             <DecryptedText
               text="I build interactive, modern web experiences using React, Next.js, and Supabase."
-              animateOn="both"
+              animateOn="hover"
               revealDirection="center"
               className="text-base md:text-lg"
               parentClassName="block"
@@ -77,14 +78,10 @@ export default function Home() {
 
           <div className="mt-8 flex flex-wrap gap-4">
             <Link href="/projects" className="cursor-target">
-              <span className="relative inline-flex items-center justify-center px-6 py-3 rounded-2xl font-semibold bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-orange-400 text-black shadow-[0_8px_30px_rgba(34,211,238,0.35)] transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]">
-                View My Work
-              </span>
+              <GlowButton>View My Work</GlowButton>
             </Link>
             <Link href="/contact" className="cursor-target">
-              <span className="relative inline-flex items-center justify-center px-6 py-3 rounded-2xl font-semibold border border-white/15 bg-white/5 text-white backdrop-blur shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06),0_8px_30px_rgba(0,0,0,0.35)] transition-colors duration-300 hover:bg-white/10">
-                Hire Me
-              </span>
+              <GlowButton className="bg-gradient-to-r from-white to-white text-black shadow-[0_8px_30px_rgba(255,255,255,0.25)]">Hire Me</GlowButton>
             </Link>
           </div>
 
@@ -188,54 +185,125 @@ export default function Home() {
           animate: { opacity: 1, y: 0 },
         };
         return (
-          <div className="space-y-6">
+          <div className="space-y-10 overflow-x-clip">
             {featuredProjects.map((project, idx) => (
               <motion.div
                 key={project.title}
-                className="group rounded-2xl bg-white/5 border border-white/10 p-5 md:p-7 flex flex-col md:flex-row items-start md:items-center gap-6"
                 initial="initial"
                 whileInView="animate"
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.35 }}
                 variants={cardVariants}
-                transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
-             >
-                <div className="flex-1">
-                  <div className="text-lg md:text-xl font-semibold mb-2">
-                    {project.title}
+                transition={{ duration: 0.7, delay: idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                className={`
+                  group relative overflow-hidden rounded-3xl border border-white/10
+                  shadow-[0_12px_32px_0_rgba(40,50,70,0.22)]
+                  flex flex-col lg:flex-row items-stretch bg-gradient-to-br
+                  from-[#1c2033]/80 via-[#181327]/70 to-[#0c0e16]/90
+                  backdrop-blur-lg
+                  hover:shadow-[0_18px_60px_0_rgba(34,211,238,0.16)]
+                  transition-all duration-500
+                  p-0
+                `}
+              >
+                {/* Subtle accent background shape */}
+                <div
+                  aria-hidden
+                  className="absolute -bottom-28 -right-24 w-64 h-64 bg-gradient-radial from-cyan-400/15 to-fuchsia-500/0 blur-2xl pointer-events-none"
+                />
+                {/* Border Glow on hover */}
+                <div className="absolute inset-0 z-0 pointer-events-none rounded-3xl border-2 border-transparent group-hover:border-cyan-300/40 group-hover:shadow-[0_0_50px_10px_rgba(34,211,238,0.06)] transition-all duration-500" />
+
+                {/* Left: Content */}
+                <div
+                  className={`
+                    flex-1 px-6 py-8 flex flex-col justify-center
+                    min-h-[220px]
+                    relative
+                    z-10
+                  `}
+                >
+                  <div className="flex items-center justify-between mb-2 gap-3">
+                    <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-300 via-fuchsia-300 to-yellow-300 bg-clip-text text-transparent group-hover:text-white transition-colors duration-400">
+                      {project.title}
+                    </h3>
                   </div>
-                  <div className="text-white/90 text-sm md:text-base mb-4 font-medium">{project.description}</div>
-                  <div className="flex items-center gap-2 text-xs mb-4 flex-wrap">
+                  <div className="mb-5 mt-2 text-white/90 text-[15px] md:text-base font-medium leading-relaxed">
+                    {project.description}
+                  </div>
+                  <div className="flex flex-wrap items-center gap-3 mb-6">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1.5 rounded-lg border border-white/20 bg-gradient-to-r from-cyan-500/20 via-fuchsia-500/20 to-orange-400/20 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]"
+                        className="px-3 py-1.5 rounded-full border border-white/20 bg-gradient-to-r from-cyan-400/20 via-fuchsia-400/15 to-orange-300/10 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)] text-xs font-semibold text-cyan-200 tracking-wide whitespace-nowrap"
                       >
-                        <span className="bg-gradient-to-r from-cyan-300 via-fuchsia-300 to-orange-300 bg-clip-text text-transparent font-bold text-sm">
-                          {tag}
-                        </span>
+                        <span className="bg-gradient-to-r from-cyan-200 via-fuchsia-200 to-orange-200 bg-clip-text text-transparent font-bold">{tag}</span>
                       </span>
                     ))}
                   </div>
-                  <a href={project.href} className="cursor-target inline-flex items-center gap-1 text-cyan-300 text-sm hover:text-cyan-200 transition-colors">
-                    Visit Site <span aria-hidden>→</span>
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-yellow-300 text-black shadow-[0_5px_32px_rgba(34,211,238,0.20)] opacity-95 hover:opacity-100 transition active:scale-95 cursor-target group-hover:shadow-md hover:scale-[1.05] mt-auto"
+                  >
+                    Visit Site
+                    <svg width="20" height="20" fill="none" aria-hidden className="ml-1 -mr-1"><path d="M5 10h10m0 0-4.5-4.5M15 10l-4.5 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </a>
                 </div>
+
+                {/* Right: Image with animated frame - now tilted to the left, and stays straight on mobile */}
                 <motion.div
-                  className="w-full md:w-[360px] rounded-xl overflow-hidden bg-black/30 border border-white/10 relative"
-                  initial={{ x: 50, opacity: 0.8, rotate: 8 }}
-                  whileHover={{ x: 0, opacity: 1, rotate: 0, y: -3, scale: 1.03 }}
-                  transition={{ type: "spring", stiffness: 280, damping: 20 }}
-                  style={{ 
-                    transform: typeof window !== 'undefined' && window.innerWidth < 1024 
-                      ? 'translateX(0) rotate(0) scale(1)' 
-                      : undefined 
+                  className={`
+                    relative flex-shrink-0 min-h-[220px] w-full md:w-[370px] lg:w-[380px]
+                    overflow-hidden group/image rounded-r-3xl transition-shadow duration-500
+                    order-first lg:order-last
+                    max-w-full
+                  `}
+                  initial={{
+                    x: 60,
+                    opacity: 0.85,
+                    rotate: -8,
+                    scale: 0.99
                   }}
-                  animate={typeof window !== 'undefined' && window.innerWidth < 1024 
-                    ? { x: 0, opacity: 1, rotate: 0, y: 0, scale: 1 }
-                    : undefined
+                  whileHover={{
+                    x: 0,
+                    opacity: 1,
+                    rotate: 0,
+                    scale: 1.03,
+                    boxShadow: '0px 6px 40px 6px rgba(244,195,32,0.10)'
+                  }}
+                  whileTap={{
+                    scale: 0.97
+                  }}
+                  transition={{ type: "spring", stiffness: 220, damping: 18 }}
+                  style={{
+                    zIndex: 10,
+                    borderTopRightRadius: '1.5rem',
+                    borderBottomRightRadius: '1.5rem'
+                  }}
+                  animate={
+                    typeof window !== 'undefined' && window.innerWidth < 1024 
+                      ? { x: 0, opacity: 1, rotate: 0, scale: 1 }
+                      : undefined
                   }
                 >
-                  <Image src={project.image} alt={`${project.title} preview`} width={360} height={360} className="w-full h-auto" />
+                  <span className="absolute z-[2] top-4 left-4 inline-flex px-3 py-1 rounded-xl bg-gradient-to-r from-cyan-400/80 via-fuchsia-400/70 to-yellow-400/80 text-xs font-bold text-[#181327] shadow shadow-cyan-200/10 select-none pointer-events-none backdrop-blur-sm">
+                    FEATURED
+                  </span>
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} preview`}
+                    width={400}
+                    height={280}
+                    className="object-cover object-top w-full h-full rounded-r-3xl transition-transform duration-500 group-hover/image:scale-[1.06] select-none pointer-events-none"
+                    style={{
+                      maxWidth: "100%"
+                    }}
+                  />
+                  {/* Image overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-black/10 pointer-events-none z-1" />
+                  {/* Glowing border effect on hover */}
+                  <div className="absolute inset-0 pointer-events-none rounded-r-3xl border-2 border-transparent group-hover/image:border-yellow-400/35 transition-all duration-500" />
                 </motion.div>
               </motion.div>
             ))}
@@ -244,25 +312,111 @@ export default function Home() {
       })()}
     </section>
 
-    {/* Testimonials */}
+    {/* Testimonials - Unique, balanced, lively */}
     <section className="px-4 md:px-8 lg:px-12 pt-16">
-      <GradientText colors={["#40ffaa", "#4079ff", "#40ffaa"]} animationSpeed={2.5} showBorder={false} className="block text-center">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-8">Testimonials</h2>
+      <GradientText
+        colors={["#40ffaa", "#4079ff", "#40ffaa"]}
+        animationSpeed={2.5}
+        showBorder={false}
+        className="block text-center"
+      >
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-8 relative inline-block">
+          <span className="relative z-10 text-white">What My Clients Say</span>
+          <span className="absolute left-1/2 -bottom-3 w-16 h-4 bg-gradient-to-r from-orange-400 via-fuchsia-500 to-cyan-400 opacity-50 blur-md rounded-full -translate-x-1/2" aria-hidden />
+        </h2>
       </GradientText>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {[1,2].map((i)=> (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch relative">
+        {/* Presentation edge effect */}
+        <div className="hidden md:block absolute top-0 left-[48%] h-full w-1 pointer-events-none bg-gradient-to-b from-cyan-400/10 to-pink-400/0 rounded-full blur-lg" />
+        {[
+          {
+            name: "Muneeb Shahzad",
+            role: "Startup Founder",
+            company: "Stealth Project",
+            text: "Abdullah took our vision, simplified things, and built a product that exceeded every expectation. Effortless communication, on-point suggestions—the SaaS MVP went live weeks earlier than planned. Rare level of ownership and polish.",
+            stars: 5,
+            avatar: "/muneeb.jpg",
+            mainAccent: "from-cyan-400/40 to-fuchsia-300/25",
+            sticker: "🌟",
+            side: "left"
+          },
+          {
+            name: "Saba Tariq",
+            role: "Senior Web Designer",
+            company: "Freelance",
+            text: "Working alongside Abdullah means you’ll always ship something superior—his eye for UI, edge-case testing, and reliable launches are rare to find. The feedback loop is a blessing, he cares deeply about making everything more human and useful.",
+            stars: 5,
+            avatar: "/saba.jpg",
+            mainAccent: "from-fuchsia-500/30 to-orange-400/20",
+            sticker: "💫",
+            side: "right"
+          }
+        ].map((t,i) => (
           <motion.div
-            key={i}
-            className="relative rounded-2xl p-[1px] bg-gradient-to-br from-white/30 to-white/10"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, ease: [0.22,1,0.36,1] }}
+            key={t.name}
+            className={`
+              relative group
+              rounded-2xl
+              p-[2px]
+              bg-gradient-to-br ${t.mainAccent}
+              shadow-[0_2px_28px_0_rgba(34,211,238,0.18)]
+              hover:scale-[1.02] hover:shadow-[0_8px_42px_rgba(172,90,255,0.13)]
+              transition-all duration-300
+              flex flex-col justify-between
+              min-h-[320px]
+              ${i === 0 ? "md:mr-2" : "md:ml-2"}
+            `}
+            initial={{ opacity: 0, y: 40, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.68, delay: i * 0.10, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="rounded-2xl bg-black/50 border border-white/10 p-6 backdrop-blur">
-              <div className="text-yellow-300 mb- text-center">★★★★★</div>
-              <div className="text-white/90 text-sm md:text-base">Excellent communication and high quality work. Will collaborate again.</div>
-              <div className="text-xs text-white/60 mt-3">Muneeb Shazad • Private</div>
+            <div className="rounded-2xl bg-black/60 border border-white/10 p-8 backdrop-blur flex flex-col h-full relative overflow-visible">
+              {/* Animated floating star sticker */}
+              <span
+                aria-hidden
+                className={`
+                  absolute -top-7 ${t.side === "left" ? "left-10" : "right-10"}
+                  text-4xl animate-bounce z-10
+                  select-none pointer-events-none
+                `}
+                style={{
+                  filter: "drop-shadow(0 2px 18px rgba(244,128,255,0.23))"
+                }}
+              >{t.sticker}</span>
+              {/* Star rating visually emphasized */}
+              <div className="mb-3 flex justify-center gap-1 transition-transform scale-[1.08]">
+                {Array.from({length: t.stars}).map((_, s) => (
+                  <span key={s} className="text-yellow-400 text-xl drop-shadow-sm">★</span>
+                ))}
+              </div>
+              <div className="text-white/90 text-lg leading-relaxed mb-5 text-center font-[450]">
+                <q>{t.text}</q>
+              </div>
+              {/* Profile Bar */}
+              <div className="flex items-center justify-center gap-3 mt-auto pt-2">
+                <span className={`w-11 h-11 rounded-full bg-gradient-to-r ${t.mainAccent} border-2 border-white/20 shadow-inner overflow-hidden flex items-center justify-center`}>
+                  <Image
+                    src={t.avatar}
+                    alt={t.name}
+                    width={44}
+                    height={44}
+                    className="w-11 h-11 object-cover rounded-full"
+                    loading="lazy"
+                  />
+                </span>
+                <div className="flex flex-col text-left">
+                  <span className="text-sm font-semibold text-white/90">{t.name}</span>
+                  <span className="text-xs text-white/60">{t.role} <span className="mx-1 text-pink-400/70">•</span> {t.company}</span>
+                </div>
+              </div>
+              {/* Subtle animated background decor */}
+              <span
+                aria-hidden
+                className={`absolute z-0 w-40 h-40 rounded-full ${i === 0 ? "-left-14 -bottom-10" : "-right-14 -top-12"} pointer-events-none
+                  bg-gradient-to-br ${t.mainAccent} opacity-30 blur-2xl animate-pulse
+                `}
+              />
             </div>
           </motion.div>
         ))}
@@ -270,53 +424,116 @@ export default function Home() {
     </section>
 
     {/* Get To Know Me */}
-    <section className="px-4 md:px-8 lg:px-12 pt-16">
-      <GradientText colors={["#ff7b54", "#ffb26b", "#ff7b54"]}
- animationSpeed={2.5} showBorder={false} className="block text-center">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-8">Get To Know Me</h2>
+    <section className="px-4 md:px-8 lg:px-12 pt-16 relative isolate">
+      {/* Animated floating blobs as ultra subtle deco */}
+      <span aria-hidden className="pointer-events-none absolute blur-3xl opacity-50 w-64 h-64 left-[-60px] top-[-80px] bg-gradient-to-br from-[#ff8e53]/60 to-[#ffb26b]/50 rounded-full z-0 animate-spin-slow" />
+      <span aria-hidden className="pointer-events-none absolute blur-3xl opacity-40 w-60 h-60 right-[-38px] bottom-[-72px] bg-gradient-to-tr from-[#40ffaa]/50 via-[#ffb26b]/30 to-[#ff7b54]/40 rounded-full z-0 animate-pulse-slow" />
+
+      <GradientText
+        colors={["#ff7b54", "#ffb26b", "#40ffaa", "#ff7b54"]}
+        animationSpeed={2.9}
+        showBorder={false}
+        className="block text-center relative z-10"
+      >
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-10">
+          Get To Know <span className="bg-gradient-to-r from-[#4cfedb] via-[#ffb26b] to-[#ff7b54] bg-clip-text text-transparent">Me</span>
+        </h2>
       </GradientText>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-2 relative z-10">
+        {/* About Card */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 44, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5, ease: [0.22,1,0.36,1] }}
+          transition={{ duration: 0.61, ease: [0.22,1,0.36,1], delay: 0.05 }}
+          className="flex items-stretch justify-center"
         >
-        <Link href="/about" className="rounded-2xl bg-white/5 border border-white/10 p-6 flex items-center gap-4 hover:bg-white/10 transition-colors">
-          <div className="relative">
-          
-           {/* // <img src={image.toString()} alt="About" className="w-24 h-24 rounded-xl" /> */}
-            <span className="absolute -right-3 -bottom-3 text-3xl ml-3 " aria-hidden>
-            <SiNextdotjs />
-              
-            </span>
-          </div>
-          <div>
-            <div className="font-semibold ml-2">About Me</div>
-            <div className="text-white/80 text-sm ml-2">Who I am and what I do</div>
-          </div>
-        </Link>
+          <Link href="/about" className="group relative max-w-full w-full rounded-2xl px-0 py-0 bg-gradient-to-br from-white/10 via-[#410bff1a]/40 to-[#ff6b6b10] border border-white/10 shadow-[0_8px_44px_rgba(255,120,110,0.13)] overflow-hidden hover:scale-[1.025] transition-transform duration-300 block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300">
+            <div className="relative p-7 pb-8 flex flex-col items-center overflow-hidden min-h-[188px]">
+              {/* Decorative sticker accent */}
+              <span className="absolute -top-6 left-8 text-4xl z-10 drop-shadow-md rotate-12 select-none pointer-events-none animate-bounce-slow motion-reduce:animate-none" aria-hidden>
+                🤝
+              </span>
+              {/* Animated border halo */}
+              <span aria-hidden className="absolute right-[-35px] bottom-[-30px] h-40 w-40 bg-gradient-to-tr from-[#ff7b54a1] to-[#ffb26b83] rounded-full opacity-40 blur-3xl animate-in-out" />
+              {/* Main Icon */}
+              <span className="relative z-20 bg-gradient-to-br from-[#ffb26b] to-[#ff7b54] text-white border-2 border-white/40 shadow-lg w-14 h-14 flex items-center justify-center rounded-xl mb-2 text-4xl group-hover:scale-110 transition-transform">
+                <SiNextdotjs />
+              </span>
+              <div className="relative text-center mt-2">
+                <div className="font-semibold text-lg md:text-xl tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.08)]">
+                  <span className="bg-gradient-to-r from-pink-500 via-yellow-500 to-orange-400 bg-clip-text text-transparent">
+                    About Me
+                  </span>
+                </div>
+                <div className="text-white/80 text-sm mt-1 font-medium max-w-xs mx-auto whitespace-pre-line">
+                  Dive into my story, philosophy, and journey
+                </div>
+              </div>
+              {/* Star flare accent */}
+              <span
+                aria-hidden
+                className="absolute top-7 left-0 text-yellow-300/70 text-2xl animate-spin pointer-events-none select-none"
+                style={{ filter: "drop-shadow(0 2px 12px #ffe686b0)" }}
+              >★</span>
+            </div>
+            {/* Electric border/aura effect */}
+            <span 
+              aria-hidden
+              className="pointer-events-none absolute top-0 left-0 w-full h-full border-2 border-transparent group-hover:border-[#ffb26b] rounded-2xl z-10 transition-all duration-300"
+              style={{
+                boxShadow:
+                  "0 0 32px 1vw #ffb26b40, 0 1.5px 22px 0 #ff7b5495"
+              }}
+            />
+          </Link>
         </motion.div>
+        {/* Tech Stack Card */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 44, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: 0.05, ease: [0.22,1,0.36,1] }}
+          transition={{ duration: 0.61, ease: [0.22,1,0.36,1], delay: 0.11 }}
+          className="flex items-stretch justify-center"
         >
-        <Link href="/about" className="rounded-2xl bg-white/5 border border-white/10 p-6 flex items-center gap-4 hover:bg-white/10 transition-colors">
-        <div className="relative">
-          
-          {/* // <img src={image.toString()} alt="About" className="w-24 h-24 rounded-xl" /> */}
-           <span className="absolute -right-3 -bottom-3 text-3xl ml-3 " aria-hidden>
-           <SiReact />
-             
-           </span>
-         </div>
-          <div>
-            <div className="font-semibold ml-3">Tech Stack</div>
-            <div className="text-white/80 text-sm ml-3">The dev tools and stack I use</div>
-          </div>
-        </Link>
+          <Link href="/about" className="group relative max-w-full w-full rounded-2xl px-0 py-0 bg-gradient-to-bl from-[#40ffaa10] via-white/5 to-[#ffb26b15] border border-white/10 shadow-[0_8px_50px_rgba(64,255,170,0.10)] overflow-hidden hover:scale-[1.025] transition-transform duration-300 block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-300">
+            <div className="relative p-7 pb-8 flex flex-col items-center min-h-[188px] overflow-hidden">
+              {/* Decorative sticker accent */}
+              <span className="absolute -top-6 right-8 text-4xl z-10 drop-shadow-sm -rotate-12 animate-bounce-slow motion-reduce:animate-none select-none pointer-events-none" aria-hidden>
+                🛠️
+              </span>
+              {/* Animated border halo */}
+              <span aria-hidden className="absolute left-[-35px] bottom-[-30px] h-40 w-40 bg-gradient-to-tr from-[#40ffaae4] to-[#ffb26b68] rounded-full opacity-35 blur-3xl animate-in-out" />
+              {/* Main Icon */}
+              <span className="relative z-20 bg-gradient-to-tr from-[#40ffaa] to-[#67e8f9] text-black border-2 border-white/40 shadow-lg w-14 h-14 flex items-center justify-center rounded-xl mb-2 text-4xl group-hover:scale-110 transition-transform">
+                <SiReact />
+              </span>
+              <div className="relative text-center mt-2">
+                <div className="font-semibold text-lg md:text-xl tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.08)]">
+                  <span className="bg-gradient-to-r from-cyan-500 to-fuchsia-500 bg-clip-text text-transparent">
+                    Tech Stack
+                  </span>
+                </div>
+                <div className="text-white/80 text-sm mt-1 font-medium max-w-xs mx-auto whitespace-pre-line">
+                  Explore the tools, languages, and frameworks I use to build magical things
+                </div>
+              </div>
+              {/* Star sparkle accent */}
+              <span
+                aria-hidden
+                className="absolute bottom-6 right-5 text-cyan-300/70 text-2xl animate-spin pointer-events-none select-none"
+                style={{ filter: "drop-shadow(0 2px 9px #40ffaae4)" }}
+              >★</span>
+            </div>
+            {/* Electric border/aura effect */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute top-0 left-0 w-full h-full border-2 border-transparent group-hover:border-[#40ffaa] rounded-2xl z-10 transition-all duration-300"
+              style={{
+                boxShadow: "0 0 32px 1vw #40ffaa25, 0 1.5px 22px 0 #1ee7b797"
+              }}
+            />
+          </Link>
         </motion.div>
       </div>
     </section>

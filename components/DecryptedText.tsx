@@ -36,9 +36,10 @@ export default function DecryptedText({
   const [revealedIndices, setRevealedIndices] = useState<Set<number>>(new Set());
   const [hasAnimated, setHasAnimated] = useState<boolean>(false);
   const containerRef = useRef<HTMLSpanElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const lastUpdateRef = useRef<number>(0);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
     let currentIteration = 0;
 
     const getNextIndex = (revealedSet: Set<number>): number => {
@@ -106,9 +107,28 @@ export default function DecryptedText({
       }
     };
 
-    if (isHovering) {
-      setIsScrambling(true);
-      interval = setInterval(() => {
+    // Respect reduced motion and touch devices: skip heavy scrambling
+    const prefersReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isCoarse = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+
+    // If not active, reset
+    if (!isHovering || prefersReduced) {
+      setDisplayText(text);
+      setRevealedIndices(new Set());
+      setIsScrambling(false);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      return;
+    }
+
+    setIsScrambling(true);
+    lastUpdateRef.current = performance.now();
+
+    const effectiveSpeed = isCoarse ? Math.max(speed, 90) : speed; // throttle a bit on mobile
+
+    const tick = (now: number) => {
+      const elapsed = now - lastUpdateRef.current;
+      if (elapsed >= effectiveSpeed) {
+        lastUpdateRef.current = now;
         setRevealedIndices(prevRevealed => {
           if (sequential) {
             if (prevRevealed.size < text.length) {
@@ -118,32 +138,32 @@ export default function DecryptedText({
               setDisplayText(shuffleText(text, newRevealed));
               return newRevealed;
             } else {
-              clearInterval(interval);
               setIsScrambling(false);
+              setDisplayText(text);
               return prevRevealed;
             }
           } else {
             setDisplayText(shuffleText(text, prevRevealed));
             currentIteration++;
             if (currentIteration >= maxIterations) {
-              clearInterval(interval);
               setIsScrambling(false);
               setDisplayText(text);
             }
             return prevRevealed;
           }
         });
-      }, speed);
-    } else {
-      setDisplayText(text);
-      setRevealedIndices(new Set());
-      setIsScrambling(false);
-    }
+      }
+      if (isScrambling) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
 
     return () => {
-      if (interval) clearInterval(interval);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [isHovering, text, speed, maxIterations, sequential, revealDirection, characters, useOriginalCharsOnly]);
+  }, [isHovering, text, speed, maxIterations, sequential, revealDirection, characters, useOriginalCharsOnly, isScrambling]);
 
   useEffect(() => {
     if (animateOn !== 'view' && animateOn !== 'both') return;
