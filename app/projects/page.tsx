@@ -94,7 +94,7 @@ export default function ProjectsPage() {
           proj.images.length >= 3
             ? proj.images
             : Array.from({ length: 3 }, (_, i) => proj.images[i % proj.images.length]);
-        const visible = isMobile ? stack.slice(0, 3) : stack;
+        const visible = stack;
         return (
           <motion.div
             key={`section-${proj.title}-${idx}`}
