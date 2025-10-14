@@ -5,6 +5,7 @@ import GradientText from "@/components/GradientText";
 import { motion } from "framer-motion";
 import CardSwap, { Card } from "@/components/CardSwap";
 import Link from "next/link";
+import GlowButton from "@/components/GlowButton";
 import { useEffect, useState } from "react";
 
 const listProjects = [
@@ -123,12 +124,16 @@ export default function ProjectsPage() {
                     </span>
                   ))}
                 </div>
-                <Link
-                  href={proj.href}
-                  className="cursor-target inline-flex items-center gap-1 text-cyan-300 text-sm hover:text-cyan-200 transition-colors"
-                >
-                  Visit Site <span aria-hidden>→</span>
-                </Link>
+                {proj.href && (
+                  <a
+                    href={proj.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="cursor-target inline-block"
+                  >
+                    <GlowButton className="px-4 py-2">Visit Site →</GlowButton>
+                  </a>
+                )}
               </div>
 
               {/* CardStack - Right on desktop, centered below on mobile */}

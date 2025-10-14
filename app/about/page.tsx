@@ -27,15 +27,16 @@ export default function AboutPage() {
                   <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">Who I Am</h2>
                 </GradientText>
                 <GradientText colors={["#40ffaa", "#4079ff", "#40ffaa"]} animationSpeed={3} className="text-white/90">
-                  <DecryptedText
-                    text={"Hey, I’m Abdullah Hassan, a Software Engineering undergrad at COMSATS University and a full-stack web developer who loves turning real problems into real products. I specialize in Next.js, Supabase, Tailwind, and modern SaaS architecture, building full end-to-end applications with authentication, role-based dashboards, real-time databases, payments, and clean UI/UX that actually feels good to use."}
-                    animateOn="both"
-                    revealDirection="center"
-                    className="text-base md:text-lg whitespace-pre-line"
-                    parentClassName="block text-left"
-                    encryptedClassName="opacity-60"
-                    speed={35}
-                  />
+                  <Reveal>
+                    <p className="text-base md:text-lg text-white/90">
+                      Hey, I’m Abdullah Hassan — a Software Engineering undergrad at COMSATS and a full‑stack developer who turns real problems into real products.
+                    </p>
+                  </Reveal>
+                  <Reveal delay={0.08}>
+                    <p className="text-sm md:text-base text-white/75 mt-3">
+                      I specialize in Next.js, Supabase, and Tailwind, building end‑to‑end apps with auth, role‑based dashboards, real‑time data, payments, and clean UX that actually feels good to use.
+                    </p>
+                  </Reveal>
                 </GradientText>
                 <div className="mt-5">
                   <GradientText colors={["#40ffaa","#4079ff","#40ffaa"]} animationSpeed={4}>
