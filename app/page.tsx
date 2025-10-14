@@ -75,11 +75,11 @@ export default function Home() {
               encryptedClassName="opacity-60"
               speed={50}
             />
-            <Reveal>
+            {/* <Reveal>
               <p className="mt-3 text-white/80 text-sm md:text-base">
                 Auth, dashboards, real‑time data, payments, and delightful UI. From idea → live product.
               </p>
-            </Reveal>
+            </Reveal> */}
           </motion.div>
 
           <div className="mt-8 flex flex-wrap gap-4">
