@@ -43,12 +43,17 @@ export default function AboutPage() {
                   </GradientText>
                   <Reveal>
                     <p className="text-white/85 mt-2 text-sm md:text-base">
-                      I design, build, and ship complete MVPs that go live in weeks—not months. I’ve delivered platforms like a multi-portal tutoring system, a clinic scheduling + invoice portal, an Urdu-friendly rental marketplace, and collaborative dashboards for hackathons.
+                      I build products end‑to‑end: strategy, architecture, shipping. Fast. From auth and role‑based dashboards to real‑time data, payments, and smooth UI, I ship working software—usually in weeks, not months.
                     </p>
                   </Reveal>
                   <Reveal delay={0.08}>
                     <p className="text-white/70 mt-3 text-sm md:text-base">
-                      Product-first, execution-focused. I optimize workflows and craft UI/UX that feels great. If there’s a vision, I can build it.
+                      Recent work includes a multi‑portal tutoring platform, a clinic scheduling + invoice portal, an Urdu‑friendly rental marketplace, and collaborative dashboards for hackathons.
+                    </p>
+                  </Reveal>
+                  <Reveal delay={0.16}>
+                    <p className="text-white/70 mt-3 text-sm md:text-base">
+                      I care about clean UX, maintainable systems, and momentum. Bring the idea—I’ll design it, build it, and put it in people’s hands.
                     </p>
                   </Reveal>
                 </div>

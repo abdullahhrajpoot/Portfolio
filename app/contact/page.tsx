@@ -51,9 +51,10 @@ export default function ContactPage() {
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noreferrer noopener" : undefined}
       className="group rounded-2xl bg-white/5 border border-white/10 p-5 md:p-6 flex items-center gap-4 hover:bg-white/10 transition-colors"
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 0.6, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: false, amount: 0.2 }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
     >
       <span className="text-2xl md:text-3xl text-white/90">{icon}</span>
@@ -83,9 +84,10 @@ export default function ContactPage() {
       {/* Big CTA card */}
       <motion.div
         className="relative rounded-[24px] border border-white/10 bg-[rgba(6,0,16,0.5)] backdrop-blur p-6 md:p-10 overflow-hidden mt-10 md:mt-12"
-        initial={{ opacity: 0, y: 26 }}
+        initial={{ opacity: 0.6, y: 0 }}
+        animate={{ opacity: 1, y: 0 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.25 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="absolute inset-x-0 -top-24 h-48 bg-[radial-gradient(closest-side,rgba(64,255,170,0.25),rgba(64,121,255,0.15),rgba(0,0,0,0))] pointer-events-none" />

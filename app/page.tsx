@@ -3,6 +3,7 @@ import Link from "next/link";
 import GlowButton from "@/components/GlowButton";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Reveal } from "@/components/MotionWrappers";
 import GradientText from "@/components/GradientText";
 import DecryptedText from "@/components/DecryptedText";
 import RotatingText from "@/components/RotatingText";
@@ -66,7 +67,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             <DecryptedText
-              text="I build interactive, modern web experiences using React, Next.js, and Supabase."
+              text="I ship fast, modern web apps—Next.js + React + Supabase—with clean UX and real product impact."
               animateOn="hover"
               revealDirection="center"
               className="text-base md:text-lg"
@@ -74,6 +75,11 @@ export default function Home() {
               encryptedClassName="opacity-60"
               speed={50}
             />
+            <Reveal>
+              <p className="mt-3 text-white/80 text-sm md:text-base">
+                Auth, dashboards, real‑time data, payments, and delightful UI. From idea → live product.
+              </p>
+            </Reveal>
           </motion.div>
 
           <div className="mt-8 flex flex-wrap gap-4">

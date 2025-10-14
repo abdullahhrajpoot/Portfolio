@@ -108,13 +108,20 @@ const CardSwap: React.FC<CardSwapProps> = ({
 
   useEffect(() => {
     const total = refs.length;
-    refs.forEach((r, i) => placeNow(r.current!, makeSlot(i, cardDistance, verticalDistance, total), skewAmount));
+    // Reset order whenever children count changes
+    order.current = Array.from({ length: total }, (_, i) => i);
+    refs.forEach((r, i) => {
+      if (r.current) {
+        placeNow(r.current, makeSlot(i, cardDistance, verticalDistance, total), skewAmount);
+      }
+    });
 
     const swap = () => {
       if (order.current.length < 2) return;
 
       const [front, ...rest] = order.current;
-      const elFront = refs[front].current!;
+      const elFront = refs[front]?.current;
+      if (!elFront) return;
       const tl = gsap.timeline();
       tlRef.current = tl;
 
@@ -126,7 +133,8 @@ const CardSwap: React.FC<CardSwapProps> = ({
 
       tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
       rest.forEach((idx, i) => {
-        const el = refs[idx].current!;
+        const el = refs[idx]?.current;
+        if (!el) return;
         const slot = makeSlot(i, cardDistance, verticalDistance, refs.length);
         tl.set(el, { zIndex: slot.zIndex }, 'promote');
         tl.to(
@@ -172,7 +180,8 @@ const CardSwap: React.FC<CardSwapProps> = ({
     intervalRef.current = window.setInterval(swap, delay);
 
     if (pauseOnHover) {
-      const node = container.current!;
+      const node = container.current;
+      if (!node) return () => clearInterval(intervalRef.current);
       const pause = () => {
         tlRef.current?.pause();
         clearInterval(intervalRef.current);
@@ -190,7 +199,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
       };
     }
     return () => clearInterval(intervalRef.current);
-  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
+  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing, childArr.length]);
 
   const rendered = childArr.map((child, i) =>
     isValidElement<CardProps>(child)

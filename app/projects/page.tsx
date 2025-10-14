@@ -99,9 +99,10 @@ export default function ProjectsPage() {
           <motion.div
             key={`section-${proj.title}-${idx}`}
             className={`relative rounded-[24px] border border-white/10 bg-[rgba(6,0,16,0.5)] backdrop-blur p-4 md:p-6 lg:p-10 overflow-hidden ${idx === 0 ? "" : "mt-8 md:mt-10"}`}
-            initial={{ opacity: 0, y: 30 }}
+            initial={idx === 0 ? { opacity: 0.6, y: 0 } : { opacity: 0, y: 30 }}
+            animate={idx === 0 ? { opacity: 1, y: 0 } : undefined}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: false, amount: 0.15 }}
             transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="absolute inset-x-0 -top-24 h-48 bg-[radial-gradient(closest-side,rgba(64,255,170,0.25),rgba(64,121,255,0.15),rgba(0,0,0,0))] pointer-events-none" />
@@ -134,10 +135,10 @@ export default function ProjectsPage() {
               <div className="relative z-0 min-h-[280px] lg:min-h-[360px] order-2 lg:order-2 flex flex-col items-center lg:flex-row lg:justify-end justify-center">
                 {/* CardStack - now appears above description on mobile, right on desktop */}
                 <div
-                  style={{ height: "260px", position: "relative" }}
+                  style={{ height: isMobile ? 240 : 260, width: isMobile ? 320 : undefined, position: "relative" }}
                   className="isolate w-full max-w-[360px] lg:h-[360px] lg:max-w-[350px] flex justify-center items-center lg:relative lg:-top-4 lg:-left-10 scale-[0.8] sm:scale-[0.9] lg:scale-100 overflow-hidden lg:overflow-visible rounded-xl"
                 >
-                  <CardSwap width={380} height={280} cardDistance={26} verticalDistance={34} delay={4000} pauseOnHover={false} skewAmount={2}>
+                  <CardSwap width={isMobile ? 320 : 380} height={isMobile ? 220 : 280} cardDistance={isMobile ? 22 : 26} verticalDistance={isMobile ? 28 : 34} delay={4000} pauseOnHover={false} skewAmount={isMobile ? 1 : 2}>
                     {visible.map((src, i) => (
                       <Card
                         key={i}
@@ -148,7 +149,7 @@ export default function ProjectsPage() {
                           alt={`${proj.title} ${i + 1}`}
                           fill
                           sizes="(max-width: 768px) 80vw, 420px"
-                          className="object-cover object-top"
+                          className="object-contain lg:object-cover object-top"
                         />
                       </Card>
                     ))}
