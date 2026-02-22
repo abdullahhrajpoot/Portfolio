@@ -185,6 +185,27 @@ export default function Home() {
             href: "#",
             image: "/urban/Screenshot_14-10-2025_103524_localhost.jpeg",
           },
+          {
+            title: "Origani",
+            description: "A premium modern web application and platform.",
+            tags: ["Next.js", "Tailwind", "Framer Motion"],
+            href: "https://origani.vercel.app",
+            image: "/orignai/Screenshot_22-2-2026_191447_origani.vercel.app.jpeg",
+          },
+          {
+            title: "G12 AI",
+            description: "An advanced customizable AI-driven platform.",
+            tags: ["Next.js", "Tailwind", "React"],
+            href: "https://g12ai.vercel.app",
+            image: "/g12/Screenshot_22-2-2026_193226_g12ai.vercel.app.jpeg",
+          },
+          {
+            title: "Logic Builder",
+            description: "An interactive logic building and visualization tool.",
+            tags: ["React", "Framer Motion", "Tailwind"],
+            href: "https://logic-builderr.vercel.app",
+            image: "/logicbuilder/Screenshot_22-2-2026_192554_logic-builderr.vercel.app.jpeg",
+          },
         ];
         const cardVariants = {
           initial: { opacity: 0, y: 24 },

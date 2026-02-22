@@ -27,26 +27,26 @@ const listProjects = [
       "/learnify/Screenshot_7-9-2025_184241_learnify-red.vercel.app.jpeg"
 
     ],
-    tags: ["Next.js", "Tailwind", "Supabase","Framer-motion","React"],
+    tags: ["Next.js", "Tailwind", "Supabase", "Framer-motion", "React"],
   },
   {
     title: "Family dental Clinic",
     desc: "Clinic website with receptionist and doctor booking workflows. Receptionists can make appointments for existing or new patients and generate invoices whereas doctors can view their appointments and earning histories.",
     href: "#",
     images: [
-     "/Screenshot_8-10-2025_204224_localhost.jpeg",
-     "/dental/Screenshot_8-10-2025_1997_family-dental-clinic-theta.vercel.app.jpeg",
-     "/dental/Screenshot_8-10-2025_19742_family-dental-clinic-theta.vercel.app.jpeg",
-     "/dental/Screenshot_8-10-2025_19753_family-dental-clinic-theta.vercel.app.jpeg",
-     "/dental/Screenshot_8-10-2025_19816_family-dental-clinic-theta.vercel.app.jpeg",
-     "/dental/Screenshot_8-10-2025_19829_family-dental-clinic-theta.vercel.app.jpeg",
-     "/dental/Screenshot_8-10-2025_19841_family-dental-clinic-theta.vercel.app.jpeg",
-     "/dental/Screenshot_8-10-2025_19921_family-dental-clinic-theta.vercel.app.jpeg",
-     "/dental/Screenshot_8-10-2025_19958_family-dental-clinic-theta.vercel.app.jpeg",
-     "/dental/Screenshot_8-10-2025_191014_family-dental-clinic-theta.vercel.app.jpeg",
-     "/dental/Screenshot_8-10-2025_191028_family-dental-clinic-theta.vercel.app.jpeg"
+      "/Screenshot_8-10-2025_204224_localhost.jpeg",
+      "/dental/Screenshot_8-10-2025_1997_family-dental-clinic-theta.vercel.app.jpeg",
+      "/dental/Screenshot_8-10-2025_19742_family-dental-clinic-theta.vercel.app.jpeg",
+      "/dental/Screenshot_8-10-2025_19753_family-dental-clinic-theta.vercel.app.jpeg",
+      "/dental/Screenshot_8-10-2025_19816_family-dental-clinic-theta.vercel.app.jpeg",
+      "/dental/Screenshot_8-10-2025_19829_family-dental-clinic-theta.vercel.app.jpeg",
+      "/dental/Screenshot_8-10-2025_19841_family-dental-clinic-theta.vercel.app.jpeg",
+      "/dental/Screenshot_8-10-2025_19921_family-dental-clinic-theta.vercel.app.jpeg",
+      "/dental/Screenshot_8-10-2025_19958_family-dental-clinic-theta.vercel.app.jpeg",
+      "/dental/Screenshot_8-10-2025_191014_family-dental-clinic-theta.vercel.app.jpeg",
+      "/dental/Screenshot_8-10-2025_191028_family-dental-clinic-theta.vercel.app.jpeg"
     ],
-    tags: ["React", "Framer Motion","Tailwind","Supabase"],
+    tags: ["React", "Framer Motion", "Tailwind", "Supabase"],
   },
   {
     title: "Urban-Eye : City Collaborative Dashboard",
@@ -64,13 +64,50 @@ const listProjects = [
       "/urban/Screenshot_14-10-2025_104047_localhost.jpeg",
       "/urban/Screenshot_14-10-2025_104054_localhost.jpeg",
       "/urban/Screenshot_14-10-2025_104114_localhost.jpeg",
-  
+
 
 
     ],
-    tags: ["Next.js", "Tailwind", "Supabase","Framer-motion","React"],
+    tags: ["Next.js", "Tailwind", "Supabase", "Framer-motion", "React"],
   },
 ];
+
+listProjects.push(
+  {
+    title: "Origani",
+    desc: "A premium modern web application and platform.",
+    href: "https://origani.vercel.app",
+    images: [
+      "/orignai/Screenshot_22-2-2026_191447_origani.vercel.app.jpeg",
+      "/orignai/Screenshot_22-2-2026_191722_origani.vercel.app.jpeg",
+      "/orignai/Screenshot_22-2-2026_191733_origani.vercel.app.jpeg",
+      "/orignai/Screenshot_22-2-2026_192136_origani.vercel.app.jpeg",
+    ],
+    tags: ["Next.js", "Tailwind", "Framer-motion"],
+  },
+  {
+    title: "G12 AI",
+    desc: "An advanced customizable AI-driven platform.",
+    href: "https://g12ai.vercel.app",
+    images: [
+      "/g12/Screenshot_22-2-2026_193226_g12ai.vercel.app.jpeg",
+      "/g12/Screenshot_22-2-2026_193439_g12ai.vercel.app.jpeg",
+      "/g12/Screenshot_22-2-2026_19352_g12ai.vercel.app.jpeg",
+    ],
+    tags: ["Next.js", "Tailwind", "React"],
+  },
+  {
+    title: "Logic Builder",
+    desc: "An interactive logic building and visualization tool.",
+    href: "https://logic-builderr.vercel.app",
+    images: [
+      "/logicbuilder/Screenshot_22-2-2026_192554_logic-builderr.vercel.app.jpeg",
+      "/logicbuilder/Screenshot_22-2-2026_192614_logic-builderr.vercel.app.jpeg",
+      "/logicbuilder/Screenshot_22-2-2026_192629_logic-builderr.vercel.app.jpeg",
+    ],
+    tags: ["React", "Framer-motion", "Tailwind"],
+  }
+);
 
 export default function ProjectsPage() {
   const [isMobile, setIsMobile] = useState(false);
